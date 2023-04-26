@@ -1,16 +1,16 @@
 import { useContext, useEffect } from "react";
 import _ from "lodash";
-import { themeContext } from "../../App";
-import { Wrapper } from "../Output.styled";
+import { themeContext } from "../../../App";
+import { Wrapper } from "../../Terminal/Output.styled";
 import { ThemeSpan, ThemesWrapper } from "./Themes.styled";
 import {
   checkThemeSwitch,
   getCurrentCmdArry,
   isArgInvalid,
-} from "../../utils/functions";
-import { termContext } from "../Terminal";
-import theme from "../../styles/themes";
-import Usage from "../Usage";
+} from "../../../utils/functions";
+import { termContext } from "../../Terminal/Terminal";
+import theme from "../../../styles/themes";
+import Usage from "../../Terminal/Usage";
 
 const myThemes = _.keys(theme);
 

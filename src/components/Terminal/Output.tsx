@@ -2,10 +2,10 @@ import BasicOutput from "./BasicOutput";
 import { OutputContainer, UsageDiv } from "./Output.styled";
 import { termContext } from "./Terminal";
 import { useContext } from "react";
-import Welcome from "./commands/Welcome";
-import Help from "./commands/Help";
-import About from "./commands/About";
-import Themes from "./commands/Themes";
+import Welcome from "../commands/Welcome/Welcome";
+import Help from "../commands/Help/Help";
+import About from "../commands/About/About";
+import Themes from "../commands/Themes/Themes";
 
 type Props = {
   index: number;

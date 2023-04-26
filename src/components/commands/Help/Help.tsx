@@ -5,8 +5,8 @@ import {
   HelpWrapper,
   KeyContainer,
 } from "./Help.styled";
-import { commands } from "../Terminal";
-import { generateTabs } from "../../utils/functions";
+import { commands } from "../../Terminal/Terminal";
+import { generateTabs } from "../../../utils/functions";
 
 const Help: React.FC = () => {
   return (

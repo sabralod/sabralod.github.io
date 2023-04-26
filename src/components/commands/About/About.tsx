@@ -1,4 +1,4 @@
-import { getFiglet } from "../../utils/functions";
+import { getFiglet } from "../../../utils/functions";
 import {
   AboutWrapper,
   HighlightAlt,

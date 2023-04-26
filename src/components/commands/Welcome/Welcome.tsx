@@ -6,7 +6,7 @@ import {
   Seperator,
   Cmd,
 } from "./Welcome.styled";
-import { getFiglet } from "../../utils/functions";
+import { getFiglet } from "../../../utils/functions";
 
 const Welcome: React.FC = () => {
   return (

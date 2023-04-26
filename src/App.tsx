@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { DefaultTheme, ThemeProvider } from "styled-components";
 import { useTheme } from "./hooks/useTheme";
 import GlobalStyle from "./styles/GlobalStyle";
-import Terminal from "./components/Terminal";
+import Terminal from "./components/Terminal/Terminal";
 
 export const themeContext = createContext<
   ((switchTheme: DefaultTheme) => void) | null

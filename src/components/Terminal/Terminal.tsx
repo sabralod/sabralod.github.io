@@ -16,7 +16,7 @@ import {
   MobileSpan,
   Wrapper,
 } from "./Terminal.styled";
-import { argTab } from "../utils/functions";
+import { argTab } from "../../utils/functions";
 import Output from "./Output";
 import TermInfo from "./TermInfo";
 
