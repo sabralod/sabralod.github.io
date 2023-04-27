@@ -1,3 +1,7 @@
+import React, {
+  useRef,
+  useState,
+} from "react";
 import {
   WelcomeContainer,
   PreName,
@@ -5,8 +9,11 @@ import {
   PreNameMobile,
   Seperator,
   Cmd,
+  PreImg,
 } from "./Welcome.styled";
 import { getFiglet } from "../../../utils/functions";
+import HeroImage from "./HeroImage";
+import selfPic from "../../../assets/self_pic_1.jpg";
 
 const Welcome: React.FC = () => {
   return (
@@ -37,6 +44,9 @@ const Welcome: React.FC = () => {
         <div>
           For a list of available commands, type `<Cmd>help</Cmd>`.
         </div>
+      </div>
+      <div className="illu-section">
+        <HeroImage src={selfPic} width={130} height={200} loadBlur={true}/>
       </div>
     </WelcomeContainer>
   );

@@ -1,5 +1,6 @@
 import _ from "lodash";
 import theme from "../styles/themes";
+await import("jimp/browser/lib/jimp.js");
 import figlet from "figlet";
 import standard from "figlet/importable-fonts/Standard.js";
 import big from "figlet/importable-fonts/Big.js";
@@ -7,6 +8,7 @@ import small from "figlet/importable-fonts/Small.js";
 import banner from "figlet/importable-fonts/Banner.js";
 import cybersmall from "figlet/importable-fonts/Cybersmall.js";
 import cyberlarge from "figlet/importable-fonts/Cyberlarge.js";
+import React from "react";
 
 figlet.parseFont("Standard", standard);
 figlet.parseFont("Big", big);
@@ -15,26 +17,56 @@ figlet.parseFont("Cybersmall", cybersmall);
 figlet.parseFont("Banner", banner);
 figlet.parseFont("Cyberlarge", cyberlarge);
 
+export const asciify = (
+  src: string,
+  callback: (value: React.SetStateAction<string>) => void,
+): void => {
+  const chars = ' .,:;i1tfLCG08@'
+  const num_c = chars.length - 1;
+  const { Jimp } = window as typeof window & { Jimp: any };
+  const loadImage = async () => {
+    const jimpImage = await Jimp.read(src);
+    jimpImage.scaleToFit(100, 200);
+
+    let ascii: string = "";
+    const norm = (255 * 4 / num_c);
+
+    let j, i, c;
+    for (j = 0; j < jimpImage.bitmap.height; j++) {
+      for (i = 0; i < jimpImage.bitmap.width; i++) {
+
+        for (c = 0; c < 2; c++) {
+
+          const color = Jimp.intToRGBA(jimpImage.getPixelColor(i, j));
+          const intensity = color.r + color.g + color.b + color.a;
+
+
+          const next = chars.charAt(Math.round(intensity / norm));
+          ascii += next;
+        }
+
+      }
+      if (j != jimpImage.bitmap.height - 1) ascii += '\n';
+
+    }
+
+    console.log(ascii);
+    callback(ascii);
+  }
+}
+
+
+/**
+ * Return fidget styled string using textSync function
+ * @param {string} inputVal - current input value
+ * @param {figlet.Options} - options for fidget
+ * @returns {string} fidget styled string
+ */
 export const getFiglet = (
   inputVal: string,
   options: figlet.Options
 ): string => {
   return figlet.textSync(inputVal, options);
-};
-
-/**
- * Return fidget styled string using textSync function
- * @param {string} inputVal - current input value
- * @returns {string} fidget styled string
- */
-export const getFigletTextSync = (inputVal: string): string | undefined => {
-  figlet.parseFont("Banner", banner);
-  return figlet.textSync(inputVal, {
-    font: "Banner",
-    horizontalLayout: "default",
-    verticalLayout: "default",
-    whitespaceBreak: true,
-  });
 };
 
 /**

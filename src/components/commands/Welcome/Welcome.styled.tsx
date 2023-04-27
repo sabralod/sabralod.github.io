@@ -10,7 +10,7 @@ export const WelcomeContainer = styled.div`
 
   div {
     @media (min-width: 1024px) {
-      flex-basis: 50%;
+      flex-basis: 40%;
     }
   }
 `;
@@ -33,6 +33,12 @@ export const PreNameMobile = styled.pre`
   margin-bottom: 1.5rem;
 
   @media (min-width: 550px) {
+    display: none;
+  }
+`;
+
+export const PreImg = styled.pre`
+  @media (max-width: 550px) {
     display: none;
   }
 `;
