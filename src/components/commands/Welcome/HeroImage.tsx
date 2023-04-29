@@ -1,7 +1,7 @@
 // import Jimp from "jimp/es";
 await import("jimp/browser/lib/jimp.js");
 import { useEffect, useState } from "react";
-import { Img, PreImg } from "./HeroImage.styled";
+import { PreImg } from "./HeroImage.styled";
 
 type Props = {
   src: string;
@@ -12,9 +12,6 @@ type Props = {
   className: string;
   loadBlur: boolean;
 }
-
-const chars = ' .,:;i1tfLCG08@'
-const num_c = chars.length - 1;
 
 const HeroImage: React.FC<Props> = (props) => {
   const { Jimp } = window as typeof window & { Jimp: any };
@@ -28,31 +25,7 @@ const HeroImage: React.FC<Props> = (props) => {
       const loadImage = await Jimp.read(src);
 
       loadImage.resize(width, height);
-      console.log(loadImage.bitmap.height);
-      console.log(loadImage.bitmap.width);
-
-      let ascii: string = "";
-      const norm = (255 * 4 / num_c);
-
-      let j, i, c;
-      for (j = 0; j < loadImage.bitmap.height; j++) {
-        for (i = 0; i < loadImage.bitmap.width; i++) {
-
-          for (c = 0; c < 2; c++) {
-
-            const color = Jimp.intToRGBA(loadImage.getPixelColor(i, j));
-            const intensity = color.r + color.g + color.b + color.a;
-
-
-            const next = chars.charAt(Math.round(intensity / norm));
-            ascii += next;
-          }
-
-        }
-        if (j != loadImage.bitmap.height - 1) ascii += '\n';
-      }
-
-      console.log(ascii);
+      
 
       const mime = await loadImage.getBase64Async(Jimp.MIME_JPEG);
       setLoading(false);
@@ -64,7 +37,7 @@ const HeroImage: React.FC<Props> = (props) => {
 
   return (
     <PreImg>
-      <Img
+      <img
         className={className && className}
         alt={alt && alt}
         src={image}
