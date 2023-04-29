@@ -38,6 +38,8 @@ export const PreNameMobile = styled.pre`
 `;
 
 export const PreImg = styled.pre`
+  margin-left: 1.5rem;
+
   @media (max-width: 550px) {
     display: none;
   }

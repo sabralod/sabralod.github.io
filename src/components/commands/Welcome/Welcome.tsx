@@ -12,10 +12,7 @@ import {
   PreImg,
 } from "./Welcome.styled";
 import { getFiglet } from "../../../utils/functions";
-import HeroImage from "./HeroImage";
-import selfPic1 from "../../../assets/self_pic_1.jpg";
-import selfPic2 from "../../../assets/self_pic_2.png";
-import AsciifyImage from "./AsciifyImage";
+import selfPic1 from "../../../assets/self_pic_1.png";
 
 const Welcome: React.FC = () => {
   return (
@@ -48,8 +45,9 @@ const Welcome: React.FC = () => {
         </div>
       </div>
       <div className="illu-section">
-        <AsciifyImage src={selfPic2} />
-        <HeroImage src={selfPic1} width={300} height={500} loadBlur={true}/>
+        <PreImg>
+          <img src={selfPic1} width={500} />
+        </PreImg>
       </div>
     </WelcomeContainer>
   );
