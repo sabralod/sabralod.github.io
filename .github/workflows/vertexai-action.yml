@@ -14,4 +14,4 @@ jobs:
         with:
           go-version-file: 'go.mod'
       
-      - uses: 'https://github.com/sabralod/vertexai-action@go-action'
+      - uses: 'github.com/sabralod/vertexai-action@go-action'
