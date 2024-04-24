@@ -5,13 +5,22 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  run-vertexai-action:
     runs-on: ['self-hosted', 'linux']
     steps:
       - uses: 'actions/checkout@v4'
+
+      - name: Checkout vertexai-action repository
+        uses: actions/checkout@v4
+        with:
+          repository: sabralod/vertexai-action
+          ref: go-action
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          path: ./.github/actions/vertexai-action
       
       - uses: 'actions/setup-go@v5'
         with:
           go-version-file: 'go.mod'
       
-      - uses: 'github.com/sabralod/vertexai-action@go-action'
+      - name: Run vertexai-action
+        uses: ./.github/actions/vertexai-action/action
