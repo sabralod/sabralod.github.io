@@ -20,7 +20,8 @@ jobs:
       
       - uses: 'actions/setup-go@v5'
         with:
-          go-version-file: 'go.mod'
+          go-version-file: './.github/actions/vertexai-action/go.mod'
+          
       
       - name: Run vertexai-action
         uses: ./.github/actions/vertexai-action/action
