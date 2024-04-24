@@ -15,7 +15,7 @@ jobs:
         with:
           repository: sabralod/vertexai-action
           ref: go-action
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          token: ${{ secrets.VERTEXAI_ACTION_TOKEN }}
           path: ./.github/actions/vertexai-action
       
       - uses: 'actions/setup-go@v5'
