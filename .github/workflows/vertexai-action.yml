@@ -18,7 +18,10 @@ jobs:
           ref: go-action
           token: ${{ secrets.VERTEXAI_ACTION_TOKEN }}
           path: ./.github/actions/vertexai-action
-      
+      - name: Debug environment
+        shell: bash
+        run: |
+          ls -als .github/actions/vertexai-action
       - name: Run vertexai-action
         uses: ./.github/actions/vertexai-action/action.yml
         with:
