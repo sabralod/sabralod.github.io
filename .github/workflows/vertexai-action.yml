@@ -25,3 +25,7 @@ jobs:
       
       - name: Run vertexai-action
         uses: ./.github/actions/vertexai-action/action.yml
+        with:
+          projectId: 'test-project-1-420005'
+          region: 'us-central1'
+          modelName: 'gemini-1.0-pro-vision'
