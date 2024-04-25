@@ -10,22 +10,30 @@ jobs:
     steps:
       - uses: 'actions/checkout@v4'
 
-      - name: Checkout vertexai-action repository
-        uses: actions/checkout@v4
-        with:
-          repository: sabralod/vertexai-action
-          ref: go-action
-          token: ${{ secrets.VERTEXAI_ACTION_TOKEN }}
-          path: ./.github/actions/vertexai-action
-      
-      - uses: 'actions/setup-go@v5'
-        with:
-          go-version-file: './.github/actions/vertexai-action/go.mod'
-          
-      
-      - name: Run vertexai-action
-        uses: ./.github/actions/vertexai-action/action.yml
+      - name: 'vertexai-action'
+        uses: sabralod/vertexai-action@go-action
         with:
           projectId: 'test-project-1-420005'
           region: 'us-central1'
           modelName: 'gemini-1.0-pro-vision'
+
+
+      # - name: Checkout vertexai-action repository
+      #   id: checkout-vertexai-action
+      #   uses: actions/checkout@v4
+      #   with:
+      #     repository: sabralod/vertexai-action
+      #     ref: go-action
+      #     token: ${{ secrets.VERTEXAI_ACTION_TOKEN }}
+      #     path: ./.github/actions/vertexai-action
+      
+      # - uses: 'actions/setup-go@v5'
+      #   with:
+      #     go-version-file: './.github/actions/vertexai-action/go.mod'
+      
+      # - name: Run vertexai-action
+      #   uses: ./.github/actions/vertexai-action/action.yml
+      #   with:
+      #     projectId: 'test-project-1-420005'
+      #     region: 'us-central1'
+      #     modelName: 'gemini-1.0-pro-vision'
