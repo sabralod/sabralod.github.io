@@ -24,4 +24,4 @@ jobs:
           
       
       - name: Run vertexai-action
-        uses: ./.github/actions/vertexai-action/action
+        uses: ./.github/actions/vertexai-action/action.yml
