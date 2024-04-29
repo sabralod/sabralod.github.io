@@ -10,20 +10,8 @@ jobs:
     steps:
       - uses: 'actions/checkout@v4'
 
-      - name: Checkout vertexai-action repository
-        id: checkout-vertexai-action
-        uses: actions/checkout@v4
-        with:
-          repository: sabralod/vertexai-action
-          ref: go-action
-          token: ${{ secrets.VERTEXAI_ACTION_TOKEN }}
-          path: ./.github/actions/vertexai-action
-      - name: Debug environment
-        shell: bash
-        run: |
-          ls -als .github/actions/vertexai-action
       - name: Run vertexai-action
-        uses: ./.github/actions/vertexai-action
+        uses: ghcr.io/sabralod/vertexai-action:go-action
         with:
           method: 'callMessage'
           projectId: 'test-project-1-420005'
@@ -33,3 +21,27 @@ jobs:
           credentialsFileName: ''
           credentials: '${{ secrets.VERTEXAI_CREDENTIALS }}'
           message: 'Return a short poem.'
+
+      # - name: Checkout vertexai-action repository
+      #   id: checkout-vertexai-action
+      #   uses: actions/checkout@v4
+      #   with:
+      #     repository: sabralod/vertexai-action
+      #     ref: go-action
+      #     token: ${{ secrets.VERTEXAI_ACTION_TOKEN }}
+      #     path: ./.github/actions/vertexai-action
+      # - name: Debug environment
+      #   shell: bash
+      #   run: |
+      #     ls -als .github/actions/vertexai-action
+      # - name: Run vertexai-action
+      #   uses: ./.github/actions/vertexai-action
+      #   with:
+      #     method: 'callMessage'
+      #     projectId: 'test-project-1-420005'
+      #     region: 'us-central1'
+      #     modelName: 'gemini-1.0-pro-vision'
+      #     credentialsPath: ''
+      #     credentialsFileName: ''
+      #     credentials: '${{ secrets.VERTEXAI_CREDENTIALS }}'
+      #     message: 'Return a short poem.'
