@@ -9,7 +9,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  run-vertexai-action:
+  prepare-environment:
     runs-on: ['self-hosted', 'linux']
 
     permissions:
@@ -17,14 +17,20 @@ jobs:
         packages: read
 
     steps:
-      - uses: 'actions/checkout@v4'
-
       - name: Log in to the Container registry
+        id: ghcr-login
         uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+    
+  run-vertexai-action:
+    runs-on: ['self-hosted', 'linux']
+    needs: ghcr-login
+
+    steps:
+      - uses: 'actions/checkout@v4'
 
       - name: Run vertexai-action
         uses: docker://ghcr.io/sabralod/vertexai-action:go-action
