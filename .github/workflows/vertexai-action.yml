@@ -27,7 +27,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run vertexai-action
-        uses: docker://sabralod/vertexai-action:go-action
+        uses: docker://ghcr.io/sabralod/vertexai-action:go-action
         with:
           method: 'callMessage'
           projectId: 'test-project-1-420005'
