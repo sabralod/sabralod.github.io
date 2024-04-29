@@ -27,7 +27,7 @@ jobs:
     
   run-vertexai-action:
     runs-on: ['self-hosted', 'linux']
-    needs: ghcr-login
+    needs: prepare-environment
 
     steps:
       - uses: 'actions/checkout@v4'
