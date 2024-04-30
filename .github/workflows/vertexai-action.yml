@@ -7,7 +7,6 @@ on:
 jobs:
   run-vertexai-action:
     runs-on: ['self-hosted', 'linux']
-    needs: prepare-environment
 
     steps:
       - uses: 'actions/checkout@v4'
@@ -23,7 +22,7 @@ jobs:
           credentialsFileName: ''
           credentials: '${{ secrets.VERTEXAI_CREDENTIALS }}'
           message: 'Return a short poem.'
-          
+
 # env:
 #   REGISTRY: ghcr.io
 #   IMAGE_NAME: ${{ github.repository }}
