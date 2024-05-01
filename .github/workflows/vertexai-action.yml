@@ -12,6 +12,7 @@ jobs:
       - uses: 'actions/checkout@v4'
 
       - name: Run vertexai-action
+        id: run-vertexai-action
         uses: docker://ghcr.io/sabralod/vertexai-action:go-action
         with:
           method: 'callMessage'
@@ -22,6 +23,12 @@ jobs:
           credentialsFileName: ''
           credentials: '${{ secrets.VERTEXAI_CREDENTIALS }}'
           message: 'Return a short poem.'
+
+      - name: Print response
+        run: |
+          echo 'output time is ${{ steps.run-vertexai-action.outputs.time }}'
+          echo 'prompt message is ${{ steps.run-vertexai-action.with.message.value }}'
+          echo 'prompt response is ${{ steps.run-vertexai-action.outputs.response }}'
 
 # env:
 #   REGISTRY: ghcr.io
