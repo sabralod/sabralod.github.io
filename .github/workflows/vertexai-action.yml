@@ -21,7 +21,7 @@ jobs:
           method: 'callMessage'
           projectId: 'test-project-1-420005'
           region: 'us-central1'
-          modelName: 'gemini-1.0-pro-vision'
+          modelName: 'gemini-1.0-pro'
           credentialsFile: ''
           credentials: '$VERTEXAI_CREDENTIALS'
           message: 'Return a short poem.'
