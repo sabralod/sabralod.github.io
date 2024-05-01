@@ -8,6 +8,9 @@ jobs:
   run-vertexai-action:
     runs-on: ['self-hosted', 'linux']
 
+    env:
+      VERTEXAI_CREDENTIALS: ${{ secrets.VERTEXAI_CREDENTIALS }}
+
     steps:
       - uses: 'actions/checkout@v4'
 
@@ -19,9 +22,8 @@ jobs:
           projectId: 'test-project-1-420005'
           region: 'us-central1'
           modelName: 'gemini-1.0-pro-vision'
-          credentialsPath: ''
-          credentialsFileName: ''
-          credentials: '${{ secrets.VERTEXAI_CREDENTIALS }}'
+          credentialsFile: ''
+          credentials: '$VERTEXAI_CREDENTIALS'
           message: 'Return a short poem.'
 
       - name: Print response
