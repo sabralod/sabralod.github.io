@@ -23,7 +23,7 @@ jobs:
           region: 'us-central1'
           modelName: 'gemini-1.0-pro'
           credentialsFile: ''
-          credentials: "$VERTEXAI_CREDENTIALS"
+          credentials: "${{ env.VERTEXAI_CREDENTIALS }}"
           message: 'Return a short poem.'
 
       - name: Print response
