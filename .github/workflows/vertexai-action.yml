@@ -11,6 +11,8 @@ jobs:
     env:
       VERTEXAI_CREDENTIALS: ${{ secrets.VERTEXAI_CREDENTIALS }}
 
+    permissions: write-all
+
     steps:
       - uses: 'actions/checkout@v4'
 
