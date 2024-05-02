@@ -14,6 +14,9 @@ jobs:
     steps:
       - uses: 'actions/checkout@v4'
 
+      - name: Debug env
+        run: |
+          env
       - name: Run vertexai-action
         id: run-vertexai-action
         uses: docker://ghcr.io/sabralod/vertexai-action:go-action
