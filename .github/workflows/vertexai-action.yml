@@ -28,6 +28,7 @@ jobs:
           credentialsFile: ''
           credentials: "${{ env.VERTEXAI_CREDENTIALS }}"
           message: 'Return a short poem.'
+          temperature: "1"
 
       - name: Print response
         run: |
