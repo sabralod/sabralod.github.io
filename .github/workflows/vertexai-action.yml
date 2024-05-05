@@ -72,11 +72,11 @@ jobs:
           credentialsFile: ''
           credentials: "${{ env.VERTEXAI_CREDENTIALS }}"
           message: 'Return a short poem.'
-          temperature: "1"
+          temperature: "0.5"
           topp: ""
           topk: ""
-          candidateCount: ""
-          maxOutputTokens: ""
+          candidateCount: "1"
+          maxOutputTokens: "350"
           stopSequences: ""
 
       - name: Print response
