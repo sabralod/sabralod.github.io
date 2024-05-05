@@ -1,6 +1,7 @@
 name: "Call vertexai action on issue."
 
 on:
+  workflow_dispatch:
   issues:
     types: ["opened", "edited", "labeled"]
 
@@ -8,15 +9,13 @@ jobs:
   prepare-environment:
     runs-on: ["self-hosted", "linux"]
 
-    permissions:
-      write-all
-
     outputs:
       issue: ${{ steps.fetch-issue.outputs.issue }}
       body: ${{ steps.fetch-issue.outputs.body }}
 
     steps:
       - name: Fetch event issue
+        if: github.event.issue.labels.*.name contains 'vertexai'
         shell: bash
         id: fetch-issue
         run: |
