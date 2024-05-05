@@ -1,0 +1,38 @@
+name: "Call vertexai action on issue."
+
+on:
+  issues:
+    types: ["opened", "edited", "labeled"]
+
+jobs:
+  prepare-environment:
+    runs-on: ["self-hosted", "linux"]
+
+    outputs:
+      issue: ${{ steps.fetch-issue.outputs.issue }}
+      body: ${{ steps.fetch-issue.outputs.body }}
+
+    steps:
+      - name: Fetch event issue
+        shell: bash
+        id: fetch-issue
+        run: |
+          echo "$(<$GITHUB_EVENT_PATH)" | jq '.issue'
+          echo "::debug::$(jq '.issue' $GITHUB_EVENT_PATH)"
+          echo "issue=$(jq -c '.issue' $GITHUB_EVENT_PATH)" >> "$GITHUB_OUTPUT"
+          echo "body=$(jq -c '.issue.body' $GITHUB_EVENT_PATH)" >> "$GITHUB_OUTPUT"
+          
+  debug-env:
+    runs-on: ["self-hosted", "linux"]
+    needs: prepare-environment
+
+    steps:
+      - name: Print environment
+        run: |
+          env
+
+      - name: Print issue
+        run: |
+          echo '::debug::issue is ${{ needs.prepare-environment.outputs.issue }}'
+          echo '::debug::body is ${{ needs.prepare-environment.outputs.body }}'
+

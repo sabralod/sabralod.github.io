@@ -3,6 +3,50 @@ name: 'vertexai-action'
 on:
   push:
   workflow_dispatch:
+    # inputs:
+    #   method:
+    #     description: ""
+    #     required: false
+    #     default: 
+    #   projectId:
+    #     description: ""
+    #     required: false
+    #     default: 
+    #   region:
+    #     description: ""
+    #     required: false
+    #     default: 
+    #   modelName:
+    #     description: ""
+    #     required: false
+    #     default: 
+    #   message:
+    #     description: "Msg."
+    #     required: true
+    #   temperature:
+    #     description: ""
+    #     required: false
+    #     default: ""
+    #   topp:
+    #     description: ""
+    #     required: false
+    #     default: ""
+    #   topk:
+    #     description: ""
+    #     required: false
+    #     default: ""
+    #   candidateCount:
+    #     description: ""
+    #     required: false
+    #     default: ""
+    #   maxOutputTokens:
+    #     description: ""
+    #     required: false
+    #     default: ""
+    #   stopSequences:
+    #     description: ""
+    #     required: false
+    #     default: ""
 
 jobs:
   run-vertexai-action:
@@ -29,6 +73,11 @@ jobs:
           credentials: "${{ env.VERTEXAI_CREDENTIALS }}"
           message: 'Return a short poem.'
           temperature: "1"
+          topp: ""
+          topk: ""
+          candidateCount: ""
+          maxOutputTokens: ""
+          stopSequences: ""
 
       - name: Print response
         run: |
