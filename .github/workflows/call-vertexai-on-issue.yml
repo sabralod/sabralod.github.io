@@ -8,6 +8,9 @@ jobs:
   prepare-environment:
     runs-on: ["self-hosted", "linux"]
 
+    permissions:
+      issues: write
+
     outputs:
       issue: ${{ steps.fetch-issue.outputs.issue }}
       body: ${{ steps.fetch-issue.outputs.body }}
@@ -21,7 +24,7 @@ jobs:
           echo "::debug::$(jq '.issue' $GITHUB_EVENT_PATH)"
           echo "issue=$(jq -c '.issue' $GITHUB_EVENT_PATH)" >> "$GITHUB_OUTPUT"
           echo "body=$(jq -c '.issue.body' $GITHUB_EVENT_PATH)" >> "$GITHUB_OUTPUT"
-          
+
   debug-env:
     runs-on: ["self-hosted", "linux"]
     needs: prepare-environment
