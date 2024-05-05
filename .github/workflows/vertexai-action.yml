@@ -1,0 +1,132 @@
+name: 'vertexai-action'
+
+on:
+  push:
+  workflow_dispatch:
+    # inputs:
+    #   method:
+    #     description: ""
+    #     required: false
+    #     default: 
+    #   projectId:
+    #     description: ""
+    #     required: false
+    #     default: 
+    #   region:
+    #     description: ""
+    #     required: false
+    #     default: 
+    #   modelName:
+    #     description: ""
+    #     required: false
+    #     default: 
+    #   message:
+    #     description: "Msg."
+    #     required: true
+    #   temperature:
+    #     description: ""
+    #     required: false
+    #     default: ""
+    #   topp:
+    #     description: ""
+    #     required: false
+    #     default: ""
+    #   topk:
+    #     description: ""
+    #     required: false
+    #     default: ""
+    #   candidateCount:
+    #     description: ""
+    #     required: false
+    #     default: ""
+    #   maxOutputTokens:
+    #     description: ""
+    #     required: false
+    #     default: ""
+    #   stopSequences:
+    #     description: ""
+    #     required: false
+    #     default: ""
+
+jobs:
+  run-vertexai-action:
+    runs-on: ['self-hosted', 'linux']
+
+    env:
+      VERTEXAI_CREDENTIALS: ${{ secrets.VERTEXAI_CREDENTIALS }}
+
+    steps:
+      - uses: 'actions/checkout@v4'
+
+      - name: Debug env
+        run: |
+          env
+      - name: Run vertexai-action
+        id: run-vertexai-action
+        uses: docker://ghcr.io/sabralod/vertexai-action:go-action
+        with:
+          method: 'callMessage'
+          projectId: 'test-project-1-420005'
+          region: 'us-central1'
+          modelName: 'gemini-1.0-pro'
+          credentialsFile: ''
+          credentials: "${{ env.VERTEXAI_CREDENTIALS }}"
+          message: 'Return a short poem.'
+          temperature: "0.5"
+          topp: ""
+          topk: ""
+          candidateCount: "1"
+          maxOutputTokens: "350"
+          stopSequences: ""
+
+      - name: Print response
+        run: |
+          echo 'output time is ${{ steps.run-vertexai-action.outputs.time }}'
+          echo 'prompt message is ${{ steps.run-vertexai-action.with.message.value }}'
+          echo 'prompt response is ${{ steps.run-vertexai-action.outputs.response }}'
+
+# env:
+#   REGISTRY: ghcr.io
+#   IMAGE_NAME: ${{ github.repository }}
+
+
+  # prepare-environment:
+  #   runs-on: ['self-hosted', 'linux']
+
+  #   permissions:
+  #       contents: read
+  #       packages: read
+
+  #   steps:
+  #     - name: Log in to the Container registry
+  #       id: ghcr-login
+  #       uses: docker/login-action@v3
+  #       with:
+  #         registry: ${{ env.REGISTRY }}
+  #         username: ${{ github.actor }}
+  #         password: ${{ secrets.GITHUB_TOKEN }}
+    
+
+      # - name: Checkout vertexai-action repository
+      #   id: checkout-vertexai-action
+      #   uses: actions/checkout@v4
+      #   with:
+      #     repository: sabralod/vertexai-action
+      #     ref: go-action
+      #     token: ${{ secrets.VERTEXAI_ACTION_TOKEN }}
+      #     path: ./.github/actions/vertexai-action
+      # - name: Debug environment
+      #   shell: bash
+      #   run: |
+      #     ls -als .github/actions/vertexai-action
+      # - name: Run vertexai-action
+      #   uses: ./.github/actions/vertexai-action
+      #   with:
+      #     method: 'callMessage'
+      #     projectId: 'test-project-1-420005'
+      #     region: 'us-central1'
+      #     modelName: 'gemini-1.0-pro-vision'
+      #     credentialsPath: ''
+      #     credentialsFileName: ''
+      #     credentials: '${{ secrets.VERTEXAI_CREDENTIALS }}'
+      #     message: 'Return a short poem.'
