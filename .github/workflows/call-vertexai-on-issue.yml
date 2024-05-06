@@ -35,6 +35,6 @@ jobs:
 
       - name: Print issue
         run: |
-          echo '::debug::issue is ${{ needs.prepare-environment.outputs.issue }}'
-          echo '::debug::body is ${{ needs.prepare-environment.outputs.body }}'
+          echo 'issue is ${{ needs.prepare-environment.outputs.issue }}'
+          echo 'body is ${{ needs.prepare-environment.outputs.body }}'
 
