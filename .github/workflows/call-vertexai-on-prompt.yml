@@ -1,0 +1,36 @@
+name: 'call-vertexai-on-prompt'
+
+on:
+  push:
+    paths:
+      - 'prompts/**'
+  workflow_dispatch:
+
+jobs:
+  check-prompts:
+    runs-on: ['self-hosted', 'linux']
+
+    steps:
+      - uses: 'actions/checkout@v4'
+
+      - name: Check if yq is installed
+        run: yq --version
+        continue-on-error: true
+
+      - name: Install yq
+        if: failure()
+        run: sudo apt-get update && sudo apt-get install yq -y
+
+      - name: Verify installation
+        run: yq --version
+
+      - name: Read YAML file
+        id: read-yaml
+        run: |
+          value=$(yq eval '.message' prompts/prompt1.yml)
+          echo "::set-output name=value::$value"
+
+      - name: Print value
+        run: |
+          echo 'Value: ${{ steps.read-yaml.outputs.value }}'
+          

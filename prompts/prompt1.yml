@@ -1,0 +1,10 @@
+---
+method: 'callMessage'
+modelName: 'gemini-1.0-pro'
+message: 'Return a short poem.'
+temperature: "0.5"
+topp: ""
+topk: ""
+candidateCount: "1"
+maxOutputTokens: "350"
+stopSequences: ""
