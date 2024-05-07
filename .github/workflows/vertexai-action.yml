@@ -1,8 +1,8 @@
-name: 'vertexai-action'
+# name: 'vertexai-action'
 
-on:
-  push:
-  workflow_dispatch:
+# on:
+#   push:
+#   workflow_dispatch:
     # inputs:
     #   method:
     #     description: ""
@@ -48,42 +48,42 @@ on:
     #     required: false
     #     default: ""
 
-jobs:
-  run-vertexai-action:
-    runs-on: ['self-hosted', 'linux']
+# jobs:
+#   run-vertexai-action:
+#     runs-on: ['self-hosted', 'linux']
 
-    env:
-      VERTEXAI_CREDENTIALS: ${{ secrets.VERTEXAI_CREDENTIALS }}
+#     env:
+#       VERTEXAI_CREDENTIALS: ${{ secrets.VERTEXAI_CREDENTIALS }}
 
-    steps:
-      - uses: 'actions/checkout@v4'
+#     steps:
+#       - uses: 'actions/checkout@v4'
 
-      - name: Debug env
-        run: |
-          env
-      - name: Run vertexai-action
-        id: run-vertexai-action
-        uses: docker://ghcr.io/sabralod/vertexai-action:go-action
-        with:
-          method: 'callMessage'
-          projectId: 'test-project-1-420005'
-          region: 'us-central1'
-          modelName: 'gemini-1.0-pro'
-          credentialsFile: ''
-          credentials: "${{ env.VERTEXAI_CREDENTIALS }}"
-          message: 'Return a short poem.'
-          temperature: "0.5"
-          topp: ""
-          topk: ""
-          candidateCount: "1"
-          maxOutputTokens: "350"
-          stopSequences: ""
+#       - name: Debug env
+#         run: |
+#           env
+#       - name: Run vertexai-action
+#         id: run-vertexai-action
+#         uses: docker://ghcr.io/sabralod/vertexai-action:go-action
+#         with:
+#           method: 'callMessage'
+#           projectId: 'test-project-1-420005'
+#           region: 'us-central1'
+#           modelName: 'gemini-1.0-pro'
+#           credentialsFile: ''
+#           credentials: "${{ env.VERTEXAI_CREDENTIALS }}"
+#           message: 'Return a short poem.'
+#           temperature: "0.5"
+#           topp: ""
+#           topk: ""
+#           candidateCount: "1"
+#           maxOutputTokens: "350"
+#           stopSequences: ""
 
-      - name: Print response
-        run: |
-          echo 'output time is ${{ steps.run-vertexai-action.outputs.time }}'
-          echo 'prompt message is ${{ steps.run-vertexai-action.with.message.value }}'
-          echo 'prompt response is ${{ steps.run-vertexai-action.outputs.response }}'
+#       - name: Print response
+#         run: |
+#           echo 'output time is ${{ steps.run-vertexai-action.outputs.time }}'
+#           echo 'prompt message is ${{ steps.run-vertexai-action.with.message.value }}'
+#           echo 'prompt response is ${{ steps.run-vertexai-action.outputs.response }}'
 
 # env:
 #   REGISTRY: ghcr.io
