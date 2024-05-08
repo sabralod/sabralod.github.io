@@ -13,24 +13,43 @@ jobs:
     steps:
       - uses: 'actions/checkout@v4'
 
-      - name: Check if yq is installed
-        run: yq --version
-        continue-on-error: true
+      - name: read-yaml-file
+        uses: pietrobolcato/action-read-yaml@1.1.0
+        id: read_action_js
+        with:
+          config: ${{ github.workspace }}/prompts/prompt1.yal
 
-      - name: Install yq
-        if: failure()
-        run: sudo apt-get update && sudo apt-get install yq -y
-
-      - name: Read YAML file
-        id: read-yaml
+      - name: use-yaml-file
         run: |
-          value=$(yq eval '.message' prompts/prompt1.yml)
-          echo "::set-output name=message::$value"
-          value=$(yq eval '.history' prompts/prompt1.yml)
-          echo "::set-output name=history::$value"
+          echo method: ${{ steps.read_action_js.outputs['method'] }}
+          echo modelName: ${{ steps.read_action_js.outputs['modelName'] }}
+          echo history: ${{ steps.read_action_js.outputs['history'] }}
+          echo message: ${{ steps.read_action_js.outputs['message'] }}
+          echo temperature: ${{ steps.read_action_js.outputs['temperature'] }}
+          echo topp: ${{ steps.read_action_js.outputs['topp'] }}
+          echo topk: ${{ steps.read_action_js.outputs['topk'] }}
+          echo candidateCount: ${{ steps.read_action_js.outputs['candidateCount'] }}
+          echo maxOutputTokens: ${{ steps.read_action_js.outputs['maxOutputTokens'] }}
+          echo stopSequences: ${{ steps.read_action_js.outputs['stopSequences'] }}
 
-      - name: Print value
-        run: |
-          echo 'Value: ${{ steps.read-yaml.outputs.message }}'
-          echo 'Value: ${{ steps.read-yaml.outputs.history }}'
+      # - name: Check if yq is installed
+      #   run: yq --version
+      #   continue-on-error: true
+
+      # - name: Install yq
+      #   if: failure()
+      #   run: sudo apt-get update && sudo apt-get install yq -y
+
+      # - name: Read YAML file
+      #   id: read-yaml
+      #   run: |
+      #     value=$(yq eval '.message' prompts/prompt1.yml)
+      #     echo "::set-output name=message::$value"
+      #     value=$(yq eval '.history' prompts/prompt1.yml)
+      #     echo "::set-output name=history::$value"
+
+      # - name: Print value
+      #   run: |
+      #     echo 'Value: ${{ steps.read-yaml.outputs.message }}'
+      #     echo 'Value: ${{ steps.read-yaml.outputs.history }}'
           
