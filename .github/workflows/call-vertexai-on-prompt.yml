@@ -11,6 +11,9 @@ jobs:
   check-prompts:
     runs-on: ['self-hosted', 'linux']
 
+    env:
+      VERTEXAI_CREDENTIALS: ${{ secrets.VERTEXAI_CREDENTIALS }}
+
     steps:
       - uses: 'actions/checkout@v4'
 
@@ -32,6 +35,31 @@ jobs:
           echo candidateCount: ${{ steps.read_action_js.outputs['candidateCount'] }}
           echo maxOutputTokens: ${{ steps.read_action_js.outputs['maxOutputTokens'] }}
           echo stopSequences: ${{ steps.read_action_js.outputs['stopSequences'] }}
+
+      - name: Run vertexai-action
+        id: run-vertexai-action
+        uses: docker://ghcr.io/sabralod/vertexai-action:go-action
+        with:
+          method: ${{ steps.read_action_js.outputs['method'] }}
+          projectId: 'test-project-1-420005'
+          region: 'us-central1'
+          modelName: ${{ steps.read_action_js.outputs['modelName'] }}
+          credentialsFile: ''
+          credentials: "${{ env.VERTEXAI_CREDENTIALS }}"
+          message: ${{ steps.read_action_js.outputs['message'] }}
+          temperature: ${{ steps.read_action_js.outputs['temperature'] }}
+          topp: ${{ steps.read_action_js.outputs['topp'] }}
+          topk: ${{ steps.read_action_js.outputs['topk'] }}
+          candidateCount: ${{ steps.read_action_js.outputs['candidateCount'] }}
+          maxOutputTokens: ${{ steps.read_action_js.outputs['maxOutputTokens'] }}
+          stopSequences: ${{ steps.read_action_js.outputs['stopSequences'] }}
+          history: ${{ steps.read_action_js.outputs['history'] }}
+
+      - name: Print response
+        run: |
+          echo 'output time is ${{ steps.run-vertexai-action.outputs.time }}'
+          echo 'prompt message is ${{ steps.run-vertexai-action.with.message.value }}'
+          echo 'prompt response is ${{ steps.run-vertexai-action.outputs.response }}'
 
       # - name: Check if yq is installed
       #   run: yq --version
