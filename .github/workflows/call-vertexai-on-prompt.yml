@@ -21,16 +21,16 @@ jobs:
         if: failure()
         run: sudo apt-get update && sudo apt-get install yq -y
 
-      - name: Verify installation
-        run: yq --version
-
       - name: Read YAML file
         id: read-yaml
         run: |
           value=$(yq eval '.message' prompts/prompt1.yml)
-          echo "::set-output name=value::$value"
+          echo "::set-output name=message::$value"
+          value=$(yq eval '.history' prompts/prompt1.yml)
+          echo "::set-output name=history::$value"
 
       - name: Print value
         run: |
-          echo 'Value: ${{ steps.read-yaml.outputs.value }}'
+          echo 'Value: ${{ steps.read-yaml.outputs.message }}'
+          echo 'Value: ${{ steps.read-yaml.outputs.history }}'
           

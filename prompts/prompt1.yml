@@ -1,7 +1,14 @@
 ---
 method: 'callMessage'
 modelName: 'gemini-1.0-pro'
-message: 'Return a short poem.'
+history:
+  - part: 'Act like a technical translator.'
+    role: 'user'
+  - part: 'Output the translation in green letters.'
+    role: 'user'
+  - part: 'Translate all to german.'
+    role: 'user'
+message: 'A nonsense sentenance, that should be senseless after translation.'
 temperature: "0.5"
 topp: ""
 topk: ""
