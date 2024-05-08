@@ -12,6 +12,6 @@ message: 'A nonsense sentenance, that should be senseless after translation.'
 temperature: "0.5"
 topp: ""
 topk: ""
-candidateCount: "1"
+candidateCount: "2"
 maxOutputTokens: "350"
 stopSequences: ""
