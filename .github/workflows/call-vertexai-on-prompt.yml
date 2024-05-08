@@ -3,6 +3,7 @@ name: 'call-vertexai-on-prompt'
 on:
   push:
     paths:
+      - '.github/workflows/call-vertexai-on-prompt.yml'
       - 'prompts/**'
   workflow_dispatch:
 
@@ -17,7 +18,7 @@ jobs:
         uses: pietrobolcato/action-read-yaml@1.1.0
         id: read_action_js
         with:
-          config: ${{ github.workspace }}/prompts/prompt1.yal
+          config: ${{ github.workspace }}/prompts/prompt1.yml
 
       - name: use-yaml-file
         run: |
