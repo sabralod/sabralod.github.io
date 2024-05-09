@@ -67,4 +67,4 @@ jobs:
           candidateCount: ${{ steps.read_prompt.outputs['candidateCount'] }}
           maxOutputTokens: ${{ steps.read_prompt.outputs['maxOutputTokens'] }}
           stopSequences: ${{ steps.read_prompt.outputs['stopSequences'] }}
-          history: ${{ fromJSON(steps.read_prompt.outputs['history']) }}
+          history: "${{ steps.read_prompt.outputs['history'] }}"
