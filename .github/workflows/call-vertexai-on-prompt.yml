@@ -19,6 +19,7 @@ jobs:
 
       - name: read-prompt-file
         id: read_prompt
+        shell: bash
         run: |
           echo "method=$(yq '.method' prompts/prompt1.yml -o=json)" >> $GITHUB_OUTPUT
           echo "modelName=$(yq '.modelName' prompts/prompt1.yml -o=json)" >> $GITHUB_OUTPUT
