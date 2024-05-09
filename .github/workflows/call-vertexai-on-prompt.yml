@@ -50,23 +50,21 @@ jobs:
           echo maxOutputTokens: ${{ steps.read_prompt.outputs['maxOutputTokens'] }}
           echo stopSequences: ${{ steps.read_prompt.outputs['stopSequences'] }}
 
-      # - name: Run vertexai-action
-      #   id: run-vertexai-action
-      #   uses: docker://ghcr.io/sabralod/vertexai-action:go-action
-      #   with:
-      #     method: ${{ steps.read_prompt.outputs['method'] }}
-      #     projectId: 'test-project-1-420005'
-      #     region: 'us-central1'
-      #     modelName: ${{ steps.read_prompt.outputs['modelName'] }}
-      #     credentialsFile: ''
-      #     credentials: "${{ env.VERTEXAI_CREDENTIALS }}"
-      #     message: ${{ steps.read_prompt.outputs['message'] }}
-      #     temperature: ${{ steps.read_prompt.outputs['temperature'] }}
-      #     topp: ${{ steps.read_prompt.outputs['topp'] }}
-      #     topk: ${{ steps.read_prompt.outputs['topk'] }}
-      #     candidateCount: ${{ steps.read_prompt.outputs['candidateCount'] }}
-      #     maxOutputTokens: ${{ steps.read_prompt.outputs['maxOutputTokens'] }}
-      #     stopSequences: ${{ steps.read_prompt.outputs['stopSequences'] }}
-      #     history: ${{ steps.read_prompt.outputs['history'] }}
-
-          
+      - name: Run vertexai-action
+        id: run-vertexai-action
+        uses: docker://ghcr.io/sabralod/vertexai-action:go-action
+        with:
+          projectId: 'test-project-1-420005'
+          region: 'us-central1'
+          credentialsFile: ''
+          credentials: "${{ env.VERTEXAI_CREDENTIALS }}"
+          method: ${{ steps.read_prompt.outputs['method'] }}
+          modelName: ${{ steps.read_prompt.outputs['modelName'] }}
+          message: ${{ steps.read_prompt.outputs['message'] }}
+          temperature: ${{ steps.read_prompt.outputs['temperature'] }}
+          topp: ${{ steps.read_prompt.outputs['topp'] }}
+          topk: ${{ steps.read_prompt.outputs['topk'] }}
+          candidateCount: ${{ steps.read_prompt.outputs['candidateCount'] }}
+          maxOutputTokens: ${{ steps.read_prompt.outputs['maxOutputTokens'] }}
+          stopSequences: ${{ steps.read_prompt.outputs['stopSequences'] }}
+          history: ${{ fromJSON(steps.read_prompt.outputs['history']) }}
