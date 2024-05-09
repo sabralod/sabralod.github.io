@@ -17,68 +17,50 @@ jobs:
     steps:
       - uses: 'actions/checkout@v4'
 
-      - name: read-yaml-file
-        uses: pietrobolcato/action-read-yaml@1.1.0
-        id: read_action_js
-        with:
-          config: ${{ github.workspace }}/prompts/prompt1.yml
+      - name: read-prompt-file
+        id: read_prompt
+        run: |
+          echo "method=$(yq '.method' prompts/prompt1.yml -o=json)" >> $GITHUB_OUTPUT
+          echo "modelName=$(yq '.modelName' prompts/prompt1.yml -o=json)" >> $GITHUB_OUTPUT
+          echo "history=$(yq '.history' prompts/prompt1.yml -o=json)" >> $GITHUB_OUTPUT
+          echo "message=$(yq '.message' prompts/prompt1.yml -o=json)" >> $GITHUB_OUTPUT
+          echo "temperature=$(yq '.temperature' prompts/prompt1.yml -o=json)" >> $GITHUB_OUTPUT
+          echo "topp=$(yq '.topp' prompts/prompt1.yml -o=json)" >> $GITHUB_OUTPUT
+          echo "topk=$(yq '.topk' prompts/prompt1.yml -o=json)" >> $GITHUB_OUTPUT
+          echo "candidateCount=$(yq '.candidateCount' prompts/prompt1.yml -o=json)" >> $GITHUB_OUTPUT
+          echo "maxOutputTokens=$(yq '.maxOutputTokens' prompts/prompt1.yml -o=json)" >> $GITHUB_OUTPUT
+          echo "stopSequences=$(yq '.stopSequences' prompts/prompt1.yml -o=json)" >> $GITHUB_OUTPUT
 
       - name: use-yaml-file
         run: |
-          echo method: ${{ steps.read_action_js.outputs['method'] }}
-          echo modelName: ${{ steps.read_action_js.outputs['modelName'] }}
-          echo history: ${{ steps.read_action_js.outputs['history'] }}
-          echo message: ${{ steps.read_action_js.outputs['message'] }}
-          echo temperature: ${{ steps.read_action_js.outputs['temperature'] }}
-          echo topp: ${{ steps.read_action_js.outputs['topp'] }}
-          echo topk: ${{ steps.read_action_js.outputs['topk'] }}
-          echo candidateCount: ${{ steps.read_action_js.outputs['candidateCount'] }}
-          echo maxOutputTokens: ${{ steps.read_action_js.outputs['maxOutputTokens'] }}
-          echo stopSequences: ${{ steps.read_action_js.outputs['stopSequences'] }}
+          echo method: ${{ steps.read_prompt.outputs['method'] }}
+          echo modelName: ${{ steps.read_prompt.outputs['modelName'] }}
+          echo history: ${{ steps.read_prompt.outputs['history'] }}
+          echo message: ${{ steps.read_prompt.outputs['message'] }}
+          echo temperature: ${{ steps.read_prompt.outputs['temperature'] }}
+          echo topp: ${{ steps.read_prompt.outputs['topp'] }}
+          echo topk: ${{ steps.read_prompt.outputs['topk'] }}
+          echo candidateCount: ${{ steps.read_prompt.outputs['candidateCount'] }}
+          echo maxOutputTokens: ${{ steps.read_prompt.outputs['maxOutputTokens'] }}
+          echo stopSequences: ${{ steps.read_prompt.outputs['stopSequences'] }}
 
       - name: Run vertexai-action
         id: run-vertexai-action
         uses: docker://ghcr.io/sabralod/vertexai-action:go-action
         with:
-          method: ${{ steps.read_action_js.outputs['method'] }}
+          method: ${{ steps.read_prompt.outputs['method'] }}
           projectId: 'test-project-1-420005'
           region: 'us-central1'
-          modelName: ${{ steps.read_action_js.outputs['modelName'] }}
+          modelName: ${{ steps.read_prompt.outputs['modelName'] }}
           credentialsFile: ''
           credentials: "${{ env.VERTEXAI_CREDENTIALS }}"
-          message: ${{ steps.read_action_js.outputs['message'] }}
-          temperature: ${{ steps.read_action_js.outputs['temperature'] }}
-          topp: ${{ steps.read_action_js.outputs['topp'] }}
-          topk: ${{ steps.read_action_js.outputs['topk'] }}
-          candidateCount: ${{ steps.read_action_js.outputs['candidateCount'] }}
-          maxOutputTokens: ${{ steps.read_action_js.outputs['maxOutputTokens'] }}
-          stopSequences: ${{ steps.read_action_js.outputs['stopSequences'] }}
-          history: ${{ steps.read_action_js.outputs['history'] }}
+          message: ${{ steps.read_prompt.outputs['message'] }}
+          temperature: ${{ steps.read_prompt.outputs['temperature'] }}
+          topp: ${{ steps.read_prompt.outputs['topp'] }}
+          topk: ${{ steps.read_prompt.outputs['topk'] }}
+          candidateCount: ${{ steps.read_prompt.outputs['candidateCount'] }}
+          maxOutputTokens: ${{ steps.read_prompt.outputs['maxOutputTokens'] }}
+          stopSequences: ${{ steps.read_prompt.outputs['stopSequences'] }}
+          history: ${{ steps.read_prompt.outputs['history'] }}
 
-      - name: Print response
-        run: |
-          echo 'output time is ${{ steps.run-vertexai-action.outputs.time }}'
-          echo 'prompt message is ${{ steps.run-vertexai-action.with.message.value }}'
-          echo 'prompt response is ${{ steps.run-vertexai-action.outputs.response }}'
-
-      # - name: Check if yq is installed
-      #   run: yq --version
-      #   continue-on-error: true
-
-      # - name: Install yq
-      #   if: failure()
-      #   run: sudo apt-get update && sudo apt-get install yq -y
-
-      # - name: Read YAML file
-      #   id: read-yaml
-      #   run: |
-      #     value=$(yq eval '.message' prompts/prompt1.yml)
-      #     echo "::set-output name=message::$value"
-      #     value=$(yq eval '.history' prompts/prompt1.yml)
-      #     echo "::set-output name=history::$value"
-
-      # - name: Print value
-      #   run: |
-      #     echo 'Value: ${{ steps.read-yaml.outputs.message }}'
-      #     echo 'Value: ${{ steps.read-yaml.outputs.history }}'
           
