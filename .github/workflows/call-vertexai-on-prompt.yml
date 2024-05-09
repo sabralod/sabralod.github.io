@@ -23,7 +23,12 @@ jobs:
         run: |
           echo "method=$(yq '.method' prompts/prompt1.yml -o=json)" >> $GITHUB_OUTPUT
           echo "modelName=$(yq '.modelName' prompts/prompt1.yml -o=json)" >> $GITHUB_OUTPUT
-          echo "history=$(yq '.history' prompts/prompt1.yml -o=json)" >> $GITHUB_OUTPUT
+
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "history<<$EOF" >> $GITHUB_OUTPUT
+          echo "$(yq '.history' prompts/prompt1.yml -o=json)" >> $GITHUB_OUTPUT
+          echo "$EOF" >> $GITHUB_OUTPUT
+          
           echo "message=$(yq '.message' prompts/prompt1.yml -o=json)" >> $GITHUB_OUTPUT
           echo "temperature=$(yq '.temperature' prompts/prompt1.yml -o=json)" >> $GITHUB_OUTPUT
           echo "topp=$(yq '.topp' prompts/prompt1.yml -o=json)" >> $GITHUB_OUTPUT
