@@ -58,13 +58,13 @@ jobs:
           region: 'us-central1'
           credentialsFile: ''
           credentials: "${{ env.VERTEXAI_CREDENTIALS }}"
-          method: ${{ steps.read_prompt.outputs['method'] }}
-          modelName: ${{ steps.read_prompt.outputs['modelName'] }}
-          message: ${{ steps.read_prompt.outputs['message'] }}
-          temperature: ${{ steps.read_prompt.outputs['temperature'] }}
-          topp: ${{ steps.read_prompt.outputs['topp'] }}
-          topk: ${{ steps.read_prompt.outputs['topk'] }}
-          candidateCount: ${{ steps.read_prompt.outputs['candidateCount'] }}
-          maxOutputTokens: ${{ steps.read_prompt.outputs['maxOutputTokens'] }}
-          stopSequences: ${{ steps.read_prompt.outputs['stopSequences'] }}
+          method: "${{ steps.read_prompt.outputs['method'] }}"
+          modelName: "${{ steps.read_prompt.outputs['modelName'] }}"
+          message: "${{ steps.read_prompt.outputs['message'] }}"
+          temperature: "${{ steps.read_prompt.outputs['temperature'] }}"
+          topp: "${{ steps.read_prompt.outputs['topp'] }}"
+          topk: "${{ steps.read_prompt.outputs['topk'] }}"
+          candidateCount: "${{ steps.read_prompt.outputs['candidateCount'] }}"
+          maxOutputTokens: "${{ steps.read_prompt.outputs['maxOutputTokens'] }}"
+          stopSequences: "${{ steps.read_prompt.outputs['stopSequences'] }}"
           history: "${{ steps.read_prompt.outputs['history'] }}"
