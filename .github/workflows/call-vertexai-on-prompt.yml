@@ -41,7 +41,7 @@ jobs:
         run: |
           echo method: ${{ steps.read_prompt.outputs['method'] }}
           echo modelName: ${{ steps.read_prompt.outputs['modelName'] }}
-          echo history: ${{ steps.read_prompt.outputs['history'] }}
+          echo history: ${{ fromJSON(steps.read_prompt.outputs['history']) }}
           echo message: ${{ steps.read_prompt.outputs['message'] }}
           echo temperature: ${{ steps.read_prompt.outputs['temperature'] }}
           echo topp: ${{ steps.read_prompt.outputs['topp'] }}
